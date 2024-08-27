@@ -1,0 +1,38 @@
+<div>
+    <h2>Categorias cadastradas</h2>
+
+    <div *ngIf="editCategoria; else addItemTemplate">
+        <input [(ngModel)]="editCategoria.nome" placeholder="Edit item name" />
+        <button (click)="saveEdit()">Salvar</button>
+        <button (click)="cancelEdit()">Cancelar</button>
+    </div>
+
+    <ng-template #addItemTemplate>
+        <div class="input-button-container">
+            <input [(ngModel)]="newCategoria" placeholder="Nova categoria" />
+            <button (click)="addItem()" id="btn-add">Adicionar</button>
+        </div>
+    </ng-template>
+
+    <br><br>
+
+    <!-- <ul>
+        <li *ngFor="let categoria of categorias">
+            {{ categoria.nome }}
+            <button (click)="editItem(categoria)">Editar</button>
+            <button (click)="removeItem(categoria.codigo)">Remover</button>
+        </li>
+    </ul> -->
+
+    <table class="table">
+        <tbody *ngFor="let categoria of categorias">
+            <tr>
+                <th width="94%">{{ categoria.nome }}</th>
+                <th width="3%"><i class="fa-solid fa-pen-to-square mouse-over"
+                        (click)="editItem(categoria)"></i></th>
+                <th width="3%"><i class="fa-solid fa-trash mouse-over"
+                        (click)="removeItem(categoria.codigo)"></i></th>
+            </tr>
+        </tbody>
+    </table>
+</div>
