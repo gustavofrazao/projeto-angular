@@ -6,10 +6,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CategoriaComponent } from './categoria/categoria.component';
+import { PessoasComponent } from './pessoas/pessoas.component';
 
 const routes: Routes = [
   { path: 'categoria', component: CategoriaComponent },
   { path: '', redirectTo: '/categoria', pathMatch: 'full' }, // Redirecionar para 'categoria' por padrão
+  { path: 'pessoas', component: PessoasComponent },
+  { path: '', redirectTo: '/pessoas', pathMatch: 'full' }, // Redirecionar para 'categoria' por padrão
 ];
 
 @NgModule({

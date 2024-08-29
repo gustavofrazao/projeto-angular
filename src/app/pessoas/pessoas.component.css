@@ -80,11 +80,11 @@ li button:active {
     align-items: center;
 }
 
-#btn-add{
+#btn-add {
     margin-top: -8px;
 }
 
-.mouse-over{
+.mouse-over {
     cursor: pointer;
 }
 
