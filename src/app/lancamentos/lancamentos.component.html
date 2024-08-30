@@ -1,0 +1,87 @@
+<div class="div-container">
+    <h2>{{ lancamentoEmEdicao ? 'Editar Lançamento' : 'Cadastro de Lançamentos'
+        }}</h2>
+    <form (ngSubmit)="salvarLancamento()">
+
+        <div class="row">
+            <div class="col-5">
+                <label>Pessoa:</label>
+                <select class="form-control" [(ngModel)]="novoLancamento.pessoa.nome"
+                    name="tipo">
+                    <option *ngFor="let pessoa of pessoas" value="{{pessoa.nome}}">{{pessoa.nome}}</option>
+                </select>
+            </div>
+
+            <div class="col-5">
+                <label>Descrição:</label>
+                <input type="text" class="form-control"
+                    [(ngModel)]="novoLancamento.descricao"
+                    name="descricao">
+            </div>
+
+            <div class="col-2">
+                <label>Valor:</label>
+                <input type="number" class="form-control"
+                    [(ngModel)]="novoLancamento.valor"
+                    name="valor">
+            </div>
+
+            <div class="col-4">
+                <label>Categoria:</label>
+                <select class="form-control" [(ngModel)]="novoLancamento.categoria.nome"
+                    name="tipo">
+                    <option *ngFor="let categoria of categorias" value="{{categoria.nome}}">{{categoria.nome}}</option>
+                </select>
+            </div>
+
+            <div class="col-4">
+                <label>Tipo:</label>
+                <select class="form-control" [(ngModel)]="novoLancamento.tipo"
+                    name="tipo">
+                    <option value="DESPESA">Despesa</option>
+                    <option value="RECEITA">Receita</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="btn-save-edit">
+            <button type="submit">{{ lancamentoEmEdicao ? 'Atualizar' :
+                'Adicionar'
+                }}</button>
+            <button type="button" *ngIf="lancamentoEmEdicao"
+                (click)="lancamentoEmEdicao = null; novoLancamento = resetarLancamento();">Cancelar</button>
+        </div>
+    </form>
+
+    <br><br><br><br>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Pessoa</th>
+                <th>Categoria</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Tipo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let lancamento of lancamentos">
+                <td>{{ lancamento.pessoa.nome }}</td>
+                <td>{{ lancamento.categoria.nome }}</td>
+                <td>{{ lancamento.descricao }}</td>
+                <td>{{ lancamento.valor }}</td>
+                <td>{{ lancamento.tipo }}</td>
+                <td>
+                    <i class="fa-solid fa-pen-to-square mouse-over"
+                        (click)="editarLancamento(lancamento)"></i>
+                        &nbsp;
+                        &nbsp;
+                    <i class="fa-solid fa-trash mouse-over"
+                        (click)="deletarLancamento(lancamento.codigo)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
