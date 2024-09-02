@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-pessoas',
@@ -11,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class PessoasComponent implements OnInit {
 
-  pessoas: any[] = [
+  /* pessoas: any[] = [
     {
       codigo: 3,
       nome: "Luiz l",
@@ -138,7 +139,9 @@ export class PessoasComponent implements OnInit {
         estado: "PE"
       }
     }
-  ]
+  ] */
+
+  pessoas: any[] = [];
 
   newPessoa: any = {
     codigo: null,
@@ -154,10 +157,6 @@ export class PessoasComponent implements OnInit {
       estado: '',
     },
   };
-
-  ngOnInit(): void {
-    // Initialization code if needed
-  }
 
   addPessoa() {
     this.pessoas.push({ ...this.newPessoa });
@@ -198,6 +197,20 @@ export class PessoasComponent implements OnInit {
         estado: '',
       },
     };
+  }
+
+  constructor(private dataService: DataService) { }
+
+  ngOnInit(): void {
+
+    this.dataService.getDadosPessoas().subscribe(
+      (resposta) => {
+        this.pessoas = resposta;
+      },
+      (erro) => {
+        console.error('Erro ao buscar dados', erro);
+      }
+    );
   }
 
 }

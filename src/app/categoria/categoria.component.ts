@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-categoria',
@@ -12,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 
 export class CategoriaComponent implements OnInit {
 
-  categorias = [
+  /* categorias = [
     {
       codigo: 2,
       nome: "Alimentação"
@@ -29,7 +30,11 @@ export class CategoriaComponent implements OnInit {
       codigo: 5,
       nome: "Outros"
     }
-  ];
+  ]; */
+
+  categorias: any[] = [];
+
+  constructor(private dataService: DataService) { }
 
   newCategoria: string = '';
   editCategoria: { codigo: number, nome: string } | null = null;
@@ -64,9 +69,18 @@ export class CategoriaComponent implements OnInit {
     this.categorias = this.categorias.filter(item => item.codigo !== id);
   }
 
-  constructor() { }
+
 
   ngOnInit(): void {
+
+    this.dataService.getDadosCategoria().subscribe(
+      (resposta) => {
+        this.categorias = resposta;
+      },
+      (erro) => {
+        console.error('Erro ao buscar dados', erro);
+      }
+    );
   }
 
 }

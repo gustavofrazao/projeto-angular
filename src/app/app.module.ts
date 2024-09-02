@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-
-
+import { AuthGuard } from './auth/auth.guard';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { CategoriaComponent } from './categoria/categoria.component';
 import { PessoasComponent } from './pessoas/pessoas.component';
 import { LancamentosComponent } from './lancamentos/lancamentos.component';
 import { LoginComponent } from './auth/login/login.component';
 
-import { AuthGuard } from './auth/auth.guard';
+
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -29,7 +30,8 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

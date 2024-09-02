@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-lancamentos',
@@ -11,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class LancamentosComponent {
 
-  lancamentos: any[] = [
+  /* lancamentos: any[] = [
     {
       codigo: 2,
       descricao: "Bahamas",
@@ -444,215 +445,11 @@ export class LancamentosComponent {
         }
       }
     }
-  ]
+  ] */
 
-  novoLancamento = {
-    codigo: 0,
-    descricao: '',
-    observacao: '',
-    dataVencimento: '',
-    dataPagamento: '',
-    valor: 0,
-    tipo: '',
-    categoria: {
-      codigo: 0,
-      nome: ''
-    },
-    pessoa: {
-      codigo: 0,
-      nome: '',
-      ativo: true,
-      endereco: {
-        logradouro: '',
-        numero: '',
-        complemento: '',
-        bairro: '',
-        cep: '',
-        cidade: '',
-        estado: ''
-      }
-    }
-  };
+  lancamentos: any[] = []
 
-  pessoas = [
-    {
-      codigo: 3,
-      nome: "Luiz l",
-      ativo: true,
-      endereco: {
-        logradouro: "Rua l",
-        numero: "1",
-        complemento: "",
-        bairro: "Recife",
-        cep: "54123678",
-        cidade: "Recife",
-        estado: "PE"
-      }
-    },
-    {
-      codigo: 4,
-      nome: "Pedro p",
-      ativo: true,
-      endereco: {
-        logradouro: "Rua p",
-        numero: "1",
-        complemento: "",
-        bairro: "Recife",
-        cep: "54123789",
-        cidade: "Recife",
-        estado: "PE"
-      }
-    },
-    {
-      codigo: 5,
-      nome: "Tereza t",
-      ativo: true,
-      endereco: {
-        logradouro: "Rua t",
-        numero: "1",
-        complemento: "",
-        bairro: "Recife",
-        cep: "54456123",
-        cidade: "Recife",
-        estado: "PE"
-      }
-    },
-    {
-      codigo: 6,
-      nome: "Cristina c",
-      ativo: true,
-      endereco: {
-        logradouro: "Rua c",
-        numero: "1",
-        complemento: "",
-        bairro: "Recife",
-        cep: "54456234",
-        cidade: "Recife",
-        estado: "PE"
-      }
-    },
-    {
-      codigo: 7,
-      nome: "Wemerson w",
-      ativo: true,
-      endereco: {
-        logradouro: "Rua w",
-        numero: "1",
-        complemento: "apt 611A",
-        bairro: "Recife",
-        cep: "54456345",
-        cidade: "Recife",
-        estado: "PE"
-      }
-    },
-    {
-      codigo: 8,
-      nome: "Felipe f",
-      ativo: true,
-      endereco: {
-        logradouro: "Rua f",
-        numero: "1",
-        complemento: "",
-        bairro: "Recife",
-        cep: "54456456",
-        cidade: "Recife",
-        estado: "PE"
-      }
-    },
-    {
-      codigo: 9,
-      nome: "Antônio a",
-      ativo: true,
-      endereco: {
-        logradouro: "Rua a",
-        numero: "1",
-        complemento: "",
-        bairro: "Recife",
-        cep: "54456567",
-        cidade: "Recife",
-        estado: "PE"
-      }
-    },
-    {
-      codigo: 10,
-      nome: "Sheila s",
-      ativo: false,
-      endereco: {
-        logradouro: "",
-        numero: "",
-        complemento: "",
-        bairro: "",
-        cep: "",
-        cidade: "",
-        estado: ""
-      }
-    },
-    {
-      codigo: 2,
-      nome: "João jj",
-      ativo: false,
-      endereco: {
-        logradouro: "Rua jj",
-        numero: "11",
-        complemento: "casa verde",
-        bairro: "Recife",
-        cep: "54123567",
-        cidade: "Recife",
-        estado: "PE"
-      }
-    }
-  ]
-
-  categorias = [
-    {
-      codigo: 2,
-      nome: "Alimentação"
-    },
-    {
-      codigo: 3,
-      nome: "Supermercado"
-    },
-    {
-      codigo: 4,
-      nome: "Farmácia"
-    },
-    {
-      codigo: 5,
-      nome: "Outros"
-    }
-  ];
-
-  lancamentoEmEdicao: any = null;
-
-  // Método para criar ou atualizar um lançamento
-  salvarLancamento() {
-    if (this.lancamentoEmEdicao) {
-      const index = this.lancamentos.findIndex(l => l.codigo === this.lancamentoEmEdicao.codigo);
-      if (index !== -1) {
-        this.lancamentos[index] = { ...this.novoLancamento };
-      }
-    } else {
-      this.novoLancamento.codigo = Date.now();
-      this.lancamentos.push({ ...this.novoLancamento });
-    }
-    this.novoLancamento = this.resetarLancamento();
-    this.lancamentoEmEdicao = null;
-  }
-
-  // Método para iniciar a edição de um lançamento
-  editarLancamento(lancamento: any) {
-    this.lancamentoEmEdicao = lancamento;
-    this.novoLancamento = { ...lancamento };
-  }
-
-  // Método para deletar um lançamento
-  deletarLancamento(codigo: number) {
-    this.lancamentos = this.lancamentos.filter(l => l.codigo !== codigo);
-  }
-
-  // Método para resetar o formulário
-  resetarLancamento() {
-    return {
+    novoLancamento = {
       codigo: 0,
       descricao: '',
       observacao: '',
@@ -679,6 +476,226 @@ export class LancamentosComponent {
         }
       }
     };
+
+    pessoas = [
+      {
+        codigo: 3,
+        nome: "Luiz l",
+        ativo: true,
+        endereco: {
+          logradouro: "Rua l",
+          numero: "1",
+          complemento: "",
+          bairro: "Recife",
+          cep: "54123678",
+          cidade: "Recife",
+          estado: "PE"
+        }
+      },
+      {
+        codigo: 4,
+        nome: "Pedro p",
+        ativo: true,
+        endereco: {
+          logradouro: "Rua p",
+          numero: "1",
+          complemento: "",
+          bairro: "Recife",
+          cep: "54123789",
+          cidade: "Recife",
+          estado: "PE"
+        }
+      },
+      {
+        codigo: 5,
+        nome: "Tereza t",
+        ativo: true,
+        endereco: {
+          logradouro: "Rua t",
+          numero: "1",
+          complemento: "",
+          bairro: "Recife",
+          cep: "54456123",
+          cidade: "Recife",
+          estado: "PE"
+        }
+      },
+      {
+        codigo: 6,
+        nome: "Cristina c",
+        ativo: true,
+        endereco: {
+          logradouro: "Rua c",
+          numero: "1",
+          complemento: "",
+          bairro: "Recife",
+          cep: "54456234",
+          cidade: "Recife",
+          estado: "PE"
+        }
+      },
+      {
+        codigo: 7,
+        nome: "Wemerson w",
+        ativo: true,
+        endereco: {
+          logradouro: "Rua w",
+          numero: "1",
+          complemento: "apt 611A",
+          bairro: "Recife",
+          cep: "54456345",
+          cidade: "Recife",
+          estado: "PE"
+        }
+      },
+      {
+        codigo: 8,
+        nome: "Felipe f",
+        ativo: true,
+        endereco: {
+          logradouro: "Rua f",
+          numero: "1",
+          complemento: "",
+          bairro: "Recife",
+          cep: "54456456",
+          cidade: "Recife",
+          estado: "PE"
+        }
+      },
+      {
+        codigo: 9,
+        nome: "Antônio a",
+        ativo: true,
+        endereco: {
+          logradouro: "Rua a",
+          numero: "1",
+          complemento: "",
+          bairro: "Recife",
+          cep: "54456567",
+          cidade: "Recife",
+          estado: "PE"
+        }
+      },
+      {
+        codigo: 10,
+        nome: "Sheila s",
+        ativo: false,
+        endereco: {
+          logradouro: "",
+          numero: "",
+          complemento: "",
+          bairro: "",
+          cep: "",
+          cidade: "",
+          estado: ""
+        }
+      },
+      {
+        codigo: 2,
+        nome: "João jj",
+        ativo: false,
+        endereco: {
+          logradouro: "Rua jj",
+          numero: "11",
+          complemento: "casa verde",
+          bairro: "Recife",
+          cep: "54123567",
+          cidade: "Recife",
+          estado: "PE"
+        }
+      }
+    ]
+
+  categorias = [
+      {
+        codigo: 2,
+        nome: "Alimentação"
+      },
+      {
+        codigo: 3,
+        nome: "Supermercado"
+      },
+      {
+        codigo: 4,
+        nome: "Farmácia"
+      },
+      {
+        codigo: 5,
+        nome: "Outros"
+      }
+    ];
+
+    lancamentoEmEdicao: any = null;
+
+    // Método para criar ou atualizar um lançamento
+    salvarLancamento() {
+      if(this.lancamentoEmEdicao) {
+        const index = this.lancamentos.findIndex(l => l.codigo === this.lancamentoEmEdicao.codigo);
+        if(index !== -1) {
+      this.lancamentos[index] = { ...this.novoLancamento };
+    }
+    } else {
+  this.novoLancamento.codigo = Date.now();
+  this.lancamentos.push({ ...this.novoLancamento });
+}
+this.novoLancamento = this.resetarLancamento();
+this.lancamentoEmEdicao = null;
   }
+
+// Método para iniciar a edição de um lançamento
+editarLancamento(lancamento: any) {
+  this.lancamentoEmEdicao = lancamento;
+  this.novoLancamento = { ...lancamento };
+}
+
+// Método para deletar um lançamento
+deletarLancamento(codigo: number) {
+  this.lancamentos = this.lancamentos.filter(l => l.codigo !== codigo);
+}
+
+// Método para resetar o formulário
+resetarLancamento() {
+  return {
+    codigo: 0,
+    descricao: '',
+    observacao: '',
+    dataVencimento: '',
+    dataPagamento: '',
+    valor: 0,
+    tipo: '',
+    categoria: {
+      codigo: 0,
+      nome: ''
+    },
+    pessoa: {
+      codigo: 0,
+      nome: '',
+      ativo: true,
+      endereco: {
+        logradouro: '',
+        numero: '',
+        complemento: '',
+        bairro: '',
+        cep: '',
+        cidade: '',
+        estado: ''
+      }
+    }
+  };
+}
+
+constructor(private dataService: DataService) { }
+
+ngOnInit(): void {
+
+  this.dataService.getDadosLancamentos().subscribe(
+    (resposta) => {
+      this.lancamentos = resposta;
+    },
+    (erro) => {
+      console.error('Erro ao buscar dados', erro);
+    }
+  );
+}
 
 }
