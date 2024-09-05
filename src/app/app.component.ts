@@ -9,20 +9,5 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent {
   title = 'projeto-angular';
-
-  constructor(private router: Router) {}
-
-  /* isAuthenticated: boolean;
-
-  constructor(private router: Router, private authService: AuthService) { 
-    this.isAuthenticated = this.authService.getAuthStatus();
-    //console.log('isAuthenticated '+this.isAuthenticated)
-  }
-
-  ngOnInit():void {
-    this.isAuthenticated = this.authService.getAuthStatus();
-    console.log('isAuthenticated '+this.isAuthenticated)
-  } */
-
-  
+ 
 }

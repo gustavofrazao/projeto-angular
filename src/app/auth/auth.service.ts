@@ -14,8 +14,7 @@ export class AuthService {
 
     if (username === 'admin' && password === 'admin') {
       this.isAuthenticated = true;
-      localStorage.setItem('token', 'true');
-      this.router.navigate(['categorias']);
+      this.router.navigate(['home']);
       return true;
     }
     return false;

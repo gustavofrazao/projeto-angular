@@ -10,27 +10,19 @@ import { CategoriaComponent } from './categoria/categoria.component';
 import { PessoasComponent } from './pessoas/pessoas.component';
 import { LancamentosComponent } from './lancamentos/lancamentos.component';
 import { LoginComponent } from './auth/login/login.component';
-
-
-
-const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'categorias', component: CategoriaComponent,  canActivate: [AuthGuard] },
-  { path: 'pessoas', component: PessoasComponent, canActivate: [AuthGuard] },
-  { path: 'lancamentos', component: LancamentosComponent, canActivate: [AuthGuard] },
-
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' }
-];
+import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    MainLayoutComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(routes),
+    //RouterModule.forRoot(routes),
     HttpClientModule
   ],
   providers: [],
